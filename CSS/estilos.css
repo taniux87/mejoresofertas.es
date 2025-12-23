@@ -1,0 +1,1016 @@
+/* --------------------------------------------------
+   TIPOGRAFÍAS
+-------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #111;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------
+   CONTENEDOR GENERAL
+-------------------------------------------------- */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* --------------------------------------------------
+   BLOQUE SUPERIOR (H1 + P)
+-------------------------------------------------- */
+.top-intro {
+  background: #000;
+  color: #C9A86A;
+  padding: 22px 20px;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+  border-bottom: 2px solid #C9A86A;
+}
+
+.top-intro h1 {
+  font-size: 2.3rem;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+
+.top-intro p {
+  font-size: 1.15rem;
+  color: #e6e6e6;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* --------------------------------------------------
+   HEADER
+-------------------------------------------------- */
+.header {
+  background: #0A3D62;
+  color: #fff;
+  padding: 14px 0;
+  border-bottom: 4px solid #C9A86A;
+}
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 2rem;
+}
+
+.logo-text {
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* MENÚ */
+.menu a {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.menu a:hover {
+  color: #C9A86A;
+}
+
+.menu .active {
+  color: #C9A86A !important;
+  border: 2px solid #C9A86A;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* --------------------------------------------------
+   BUSCADOR
+-------------------------------------------------- */
+.search-box form {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid #dcdcdc;
+  transition: 0.25s ease;
+}
+
+.search-box form:hover {
+  border-color: #C9A86A;
+  box-shadow: 0 0 8px rgba(201,168,106,0.4);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  width: 150px;
+  background: transparent;
+  transition: width 0.3s ease;
+}
+
+.search-box input:focus {
+  width: 220px;
+}
+
+.search-box button {
+  border: none;
+  background: #C9A86A;
+  color: #111;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.search-box button:hover {
+  background: #b8955c;
+}
+
+/* --------------------------------------------------
+   HERO
+-------------------------------------------------- */
+.hero {
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+.hero > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* --------------------------------------------------
+   SECCIONES
+-------------------------------------------------- */
+.section {
+  background: #fff;
+  border: 1px solid #C9A86A;
+  padding: 25px;
+  border-radius: 12px;
+  margin: 30px 0;
+  box-shadow: 0 2px 10px rgba(201,168,106,0.15);
+}
+
+.section h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.9rem;
+  color: #0A3D62;
+  border-left: 5px solid #C9A86A;
+  padding-left: 12px;
+  margin-bottom: 18px;
+}
+
+/* --------------------------------------------------
+   CARDS PREMIUM
+-------------------------------------------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #C9A86A;
+  box-shadow: 0 3px 10px rgba(201,168,106,0.25);
+  transition: 0.25s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(201,168,106,0.35);
+}
+
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  font-family: 'Merriweather', serif;
+  color: #0A3D62;
+}
+
+.card p {
+  color: #333;
+}
+
+/* --------------------------------------------------
+   LISTA DE BLOG
+-------------------------------------------------- */
+.list-item {
+  background: #fff;
+  border: 1px solid #C9A86A;
+  border-radius: 10px;
+  padding: 14px 18px;
+  transition: 0.25s ease;
+  text-decoration: none;
+  color: #0A3D62;
+  font-weight: 600;
+}
+
+.list-item:hover {
+  background: #FDF8EE;
+}
+
+/* --------------------------------------------------
+   BLOQUES SEO (NEGRO + DORADO)
+-------------------------------------------------- */
+.bloque-seo {
+  background: #000;
+  border: 1px solid #C9A86A;
+  padding: 28px 32px;
+  border-radius: 14px;
+  margin: 40px auto;
+  max-width: 950px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+}
+
+.bloque-seo h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+  color: #C9A86A;
+}
+
+.bloque-seo p {
+  color: #e6e6e6;
+  font-size: 1.05rem;
+}
+
+.bloque-seo a {
+  color: #C9A86A;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bloque-seo a:hover {
+  color: #fff;
+}
+
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
+.footer {
+  background: #0A3D62;
+  color: #fff;
+  padding: 40px 0;
+  border-top: 4px solid #C9A86A;
+}
+
+.footer-links a {
+  color: #C9A86A;
+  font-weight: 600;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+/* --------------------------------------------------
+   BOTONES PREMIUM
+-------------------------------------------------- */
+.btn-premium {
+  display: inline-block;
+  padding: 12px 22px;
+  background: #000;
+  color: #C9A86A;
+  border: 2px solid #C9A86A;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.btn-premium:hover {
+  background: #C9A86A;
+  color: #000;
+  box-shadow: 0 4px 14px rgba(201,168,106,0.45);
+  transform: translateY(-3px);
+}
+
+/* --------------------------------------------------
+   RESPONSIVE
+-------------------------------------------------- */
+@media (max-width: 768px) {
+  .hero {
+    height: 300px;
+  }
+  .search-box input {
+    width: 120px;
+  }
+  .search-box input:focus {
+    width: 160px;
+  }
+}
+/* --------------------------------------------------
+   Blog: grid de artículos
+-------------------------------------------------- */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.blog-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.blog-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.blog-card-content {
+  padding: 18px;
+}
+
+.blog-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #0A3D62;
+}
+
+.blog-card p {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.blog-card .leer-mas {
+  font-weight: 600;
+  color: #C9A86A;
+}
+/* --------------------------------------------------
+   BLOQUE SUPERIOR PREMIUM (H1 + P)
+-------------------------------------------------- */
+.top-intro {
+  background: #000; /* fondo negro */
+  color: #C9A86A; /* dorado */
+  padding: 40px 20px;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+  border-bottom: 2px solid #C9A86A;
+  margin-bottom: 0;
+}
+
+.top-intro h1 {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  color: #C9A86A;
+  letter-spacing: 1px;
+}
+
+.top-intro p {
+  font-size: 1.15rem;
+  color: #e6e6e6;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.7;
+}
+/* --------------------------------------------------
+   BOTONES PREMIUM (negro + dorado)
+   No afecta a tus botones actuales
+-------------------------------------------------- */
+.btn-premium {
+  display: inline-block;
+  padding: 12px 22px;
+  background: #000;
+  color: #C9A86A;
+  border: 2px solid #C9A86A;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: 0.25s ease;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.btn-premium:hover {
+  background: #C9A86A;
+  color: #000;
+  box-shadow: 0 4px 14px rgba(201,168,106,0.45);
+  transform: translateY(-3px);
+}
+/* --------------------------------------------------
+   PREMIUM: BLOQUES SEO (negro + dorado)
+-------------------------------------------------- */
+.bloque-seo {
+  background: #000;
+  border: 1px solid #C9A86A;
+  padding: 28px 32px;
+  border-radius: 14px;
+  margin: 40px auto;
+  max-width: 950px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.55);
+}
+
+.bloque-seo h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+  color: #C9A86A;
+  margin-bottom: 14px;
+}
+
+.bloque-seo p {
+  color: #e6e6e6;
+  font-size: 1.05rem;
+  margin-bottom: 18px;
+}
+
+.bloque-seo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bloque-seo li {
+  margin-bottom: 10px;
+}
+
+.bloque-seo a {
+  color: #C9A86A;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.bloque-seo a:hover {
+  color: #fff;
+}
+
+/* --------------------------------------------------
+   PREMIUM: ESPACIADOS GENERALES
+-------------------------------------------------- */
+.section {
+  margin: 35px 0;
+}
+
+.section h2 {
+  margin-bottom: 18px;
+}
+
+/* --------------------------------------------------
+   PREMIUM: TARJETAS (cards)
+-------------------------------------------------- */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #C9A86A;
+  box-shadow: 0 3px 10px rgba(201,168,106,0.25);
+  transition: 0.25s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(201,168,106,0.35);
+}
+
+.card h3 {
+  color: #0A3D62;
+  font-family: 'Merriweather', serif;
+}
+
+.card p {
+  color: #333;
+}
+
+/* --------------------------------------------------
+   PREMIUM: LISTA DE BLOG
+-------------------------------------------------- */
+.list-item {
+  background: #fff;
+  border: 1px solid #C9A86A;
+  border-radius: 10px;
+  padding: 14px 18px;
+  transition: 0.25s ease;
+}
+
+.list-item:hover {
+  background: #FDF8EE;
+  border-color: #b8955c;
+}
+
+/* --------------------------------------------------
+   PREMIUM: FOOTER
+-------------------------------------------------- */
+.footer {
+  background: #0A3D62;
+  color: #fff;
+  padding: 40px 0;
+  border-top: 4px solid #C9A86A;
+}
+
+.footer-links a {
+  color: #C9A86A;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+/* --------------------------------------------------
+   PREMIUM: HERO (sin tocar tu imagen)
+-------------------------------------------------- */
+.hero {
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  border-radius: inherit;
+}
+
+.hero > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* --------------------------------------------------
+   PREMIUM: GRID
+-------------------------------------------------- */
+.grid {
+  gap: 28px;
+}
+
+/* --------------------------------------------------
+   PREMIUM: TIPOGRAFÍA GENERAL
+-------------------------------------------------- */
+h1, h2, h3 {
+  letter-spacing: 0.5px;
+}
+
+p {
+  line-height: 1.65;
+}
+/* --------------------------------------------------
+   CARDS PREMIUM (blanco + dorado)
+-------------------------------------------------- */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #C9A86A;
+  box-shadow: 0 2px 8px rgba(201,168,106,0.25);
+  transition: 0.25s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 14px rgba(201,168,106,0.35);
+}
+
+.card h3 {
+  color: #0A3D62;
+}
+
+.card p {
+  color: #333;
+}
+/* ✅ BLOQUES SEO PREMIUM (negro + dorado) */
+.bloque-seo {
+  background: #000; /* fondo negro elegante */
+  border: 1px solid #C9A86A; /* borde dorado */
+  padding: 25px 30px;
+  border-radius: 12px;
+  margin: 35px auto;
+  max-width: 900px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.bloque-seo h2 {
+  color: #C9A86A; /* dorado */
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  font-family: 'Merriweather', serif;
+}
+
+.bloque-seo p {
+  color: #eee; /* gris claro para contraste */
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.bloque-seo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bloque-seo li {
+  margin-bottom: 8px;
+}
+
+.bloque-seo a {
+  color: #C9A86A; /* dorado */
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.bloque-seo a:hover {
+  color: #fff; /* blanco al pasar el ratón */
+}
+/* --------------------------------------------------
+   TEMA OSCURO PREMIUM LIBRARIUM
+-------------------------------------------------- */
+
+/* Fondo general */
+body {
+  background: #0b0b0b;
+  color: #e8e0c8;
+  font-family: "Merriweather", serif;
+}
+
+/* Títulos dorados */
+h1, h2, h3, h4 {
+  color: #d4b46a;
+  font-family: "Merriweather", serif;
+}
+
+/* Párrafos */
+p, li, a, span {
+  color: #e8e0c8;
+}
+
+/* Enlaces */
+a {
+  color: #d4b46a;
+  text-decoration: none;
+}
+a:hover {
+  color: #f5dca0;
+}
+
+/* Header */
+.header {
+  background: #111;
+  border-bottom: 1px solid #333;
+}
+
+.menu a {
+  color: #e8e0c8;
+}
+.menu a.active {
+  border-bottom: 2px solid #d4b46a;
+  color: #d4b46a;
+}
+.menu a:hover {
+  color: #f5dca0;
+}
+
+/* Buscador */
+.search-box input {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #e8e0c8;
+}
+.search-box button {
+  background: #d4b46a;
+  color: #000;
+}
+
+/* Hero */
+.hero {
+  background-size: cover;
+  background-position: center;
+}
+.hero-overlay {
+  background: rgba(0,0,0,0.6);
+  border-radius: 12px;
+}
+
+/* Secciones */
+.section {
+  background: #111;
+  padding: 40px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  border: 1px solid #222;
+}
+
+/* Cards */
+.card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #e8e0c8;
+}
+.card h3 {
+  color: #d4b46a;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(212,180,106,0.2);
+}
+
+/* Grid */
+.grid {
+  gap: 25px;
+}
+
+/* Listas de artículos */
+.list-item {
+  color: #d4b46a;
+  border-bottom: 1px solid #333;
+}
+.list-item:hover {
+  color: #f5dca0;
+}
+
+/* Bloques SEO */
+.bloque-seo {
+  background: #111;
+  padding: 40px;
+  border-radius: 12px;
+  margin: 40px auto;
+  border: 1px solid #222;
+}
+.bloque-seo ul li a {
+  color: #d4b46a;
+}
+
+/* Footer */
+.footer {
+  background: #111;
+  border-top: 1px solid #333;
+}
+.footer a {
+  color: #d4b46a;
+}
+.footer a:hover {
+  color: #f5dca0;
+}
+/* --------------------------------------------------
+   TEMA OSCURO PREMIUM UNIFICADO
+-------------------------------------------------- */
+
+/* Fondo general */
+body {
+  background: #0b0b0b !important;
+  color: #e8e0c8 !important;
+  font-family: "Merriweather", serif;
+}
+
+/* Títulos */
+h1, h2, h3, h4 {
+  color: #d4b46a !important;
+  font-family: "Merriweather", serif;
+}
+
+/* Párrafos y texto general */
+p, li, span, strong {
+  color: #e8e0c8 !important;
+}
+
+/* Enlaces */
+a {
+  color: #d4b46a !important;
+  text-decoration: none;
+}
+a:hover {
+  color: #f5dca0 !important;
+}
+
+/* Header */
+.header {
+  background: #111 !important;
+  border-bottom: 1px solid #333;
+}
+.menu a {
+  color: #e8e0c8 !important;
+}
+.menu a.active {
+  border-bottom: 2px solid #d4b46a !important;
+  color: #d4b46a !important;
+}
+.menu a:hover {
+  color: #f5dca0 !important;
+}
+
+/* Buscador */
+.search-box input {
+  background: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  color: #e8e0c8 !important;
+}
+.search-box button {
+  background: #d4b46a !important;
+  color: #000 !important;
+}
+
+/* Hero */
+.hero {
+  background-size: cover;
+  background-position: center;
+}
+.hero-overlay,
+.hero .container {
+  background: rgba(0,0,0,0.6) !important;
+  border-radius: 12px;
+}
+
+/* Secciones */
+.section {
+  background: #111 !important;
+  padding: 40px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  border: 1px solid #222;
+}
+
+/* Cards */
+.card {
+  background: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  color: #e8e0c8 !important;
+}
+.card h3 {
+  color: #d4b46a !important;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(212,180,106,0.2);
+}
+
+/* Grid */
+.grid {
+  gap: 25px;
+}
+
+/* Listas de artículos */
+.list-item {
+  color: #d4b46a !important;
+  border-bottom: 1px solid #333 !important;
+}
+.list-item:hover {
+  color: #f5dca0 !important;
+}
+
+/* Bloques SEO */
+.bloque-seo {
+  background: #111 !important;
+  padding: 40px;
+  border-radius: 12px;
+  margin: 40px auto;
+  border: 1px solid #222;
+}
+.bloque-seo ul li a {
+  color: #d4b46a !important;
+}
+
+/* Footer */
+.footer {
+  background: #111 !important;
+  border-top: 1px solid #333;
+}
+.footer a {
+  color: #d4b46a !important;
+}
+.footer a:hover {
+  color: #f5dca0 !important;
+}
+
+/* --------------------------------------------------
+   ESTILOS ESPECÍFICOS PARA LIBROS Y RANKINGS
+-------------------------------------------------- */
+
+/* Filtros de género */
+.filtros, .generos, .categorias, .tags {
+  background: #111 !important;
+  border: 1px solid #333 !important;
+  padding: 15px;
+  border-radius: 10px;
+}
+.filtros a, .generos a, .categorias a, .tags a {
+  color: #d4b46a !important;
+  background: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  display: inline-block;
+}
+.filtros a:hover, .generos a:hover {
+  background: #d4b46a !important;
+  color: #000 !important;
+}
+
+/* Cards de libros */
+.card img {
+  border-bottom: 1px solid #333 !important;
+}
+
+/* Ratings */
+.rating, .estrellas, .stars {
+  color: #d4b46a !important;
+}
+
+/* Descripciones */
+.card p {
+  color: #e8e0c8 !important;
+}
+
+/* --------------------------------------------------
+   BLOG
+-------------------------------------------------- */
+
+.blog-card {
+  background: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  color: #e8e0c8 !important;
+}
+.blog-card h3 {
+  color: #d4b46a !important;
+}
+.blog-card p {
+  color: #e8e0c8 !important;
+}
+.blog-card .leer-mas {
+  color: #d4b46a !important;
+}
+.blog-card:hover {
+  box-shadow: 0 4px 12px rgba(212,180,106,0.2);
+}
+
+/* --------------------------------------------------
+   PÁGINAS INTERNAS (libro.html, articulo.html, etc.)
+-------------------------------------------------- */
+
+.detalle, .contenido, .articulo, .info {
+  background: #111 !important;
+  border: 1px solid #333 !important;
+  padding: 30px;
+  border-radius: 12px;
+}
+.detalle h2, .articulo h2 {
+  color: #d4b46a !important;
+}
