@@ -7,7 +7,7 @@ function App() {
   const [isTyping, setIsTyping] = useState(false);
   
   // ARREGLADO: Ahora la API Key tiene sus comillas para que funcione
-  const [apiKey, setApiKey] = useState('AIzaSyCh-gSpjE17UGwanwtYr4oyY-Ntbqi63vI'); 
+  const [apiKey, setApiKey] = useState('AIzaSyCh-gSpjE17UGwanwtYr4oyY-Ntbqi63vI');
   const chatEndRef = useRef(null);
 
   const AMAZON_TAG = 'librarium01-21';
