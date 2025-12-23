@@ -5,19 +5,20 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  
-  // Tu API Key con comillas
+
+  // Tu API Key de Google
   const [apiKey, setApiKey] = useState('AIzaSyCh-gSpjE17UGwanwtYr4oyY-Ntbqi63vI');
   const chatEndRef = useRef(null);
 
-  // Tu ID de afiliado de Amazon
+  // Tu Tag de Afiliado de Amazon
   const AMAZON_TAG = 'librarium01-21';
 
-  // Efecto para que el chat siempre baje solo
+  // Efecto para bajar el scroll automáticamente
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Función para enviar mensaje
   const handleSendMessage = async () => {
     if (input.trim() === '') return;
 
@@ -30,19 +31,24 @@ function App() {
     setIsTyping(false);
   };
 
+  // Función que conecta con la IA (CORREGIDA)
   const getGeminiResponse = async (prompt) => {
+    // Instrucciones para la IA
     const systemInstruction = "Eres la experta en chollos de MejoresOfertas.es. Ayuda al usuario a encontrar productos en Amazon. Responde siempre de forma entusiasta y breve. SIEMPRE incluye al final el producto entre corchetes dobles: [[producto]].";
 
+    // Formato de datos correcto para la versión V1
     const payload = {
       contents: [{
         parts: [{ text: systemInstruction + "\n\nUsuario: " + prompt }]
       }]
     };
 
-    // LÍNEA 45 ARREGLADA: Dirección V1 y comilla cerrada
+    // URL DE LA API (VERSIÓN V1 ESTABLE - ARREGLADA)
+    // Usamos comillas invertidas ` ` para que no falle
     const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
+      // AQUÍ ESTABA EL ERROR DE LA LÍNEA 47 - YA ESTÁ ARREGLADO
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,20 +57,27 @@ function App() {
 
       const result = await response.json();
 
+      // Si hay error en la respuesta de Google
       if (result.error) {
         throw new Error(result.error.message);
       }
 
+      // Sacamos el texto de la respuesta
       let aiResponseText = result.candidates[0].content.parts[0].text;
-      
+
+      // Buscamos si hay producto entre [[ ]] para crear el botón
       const productMatch = aiResponseText.match(/\[\[(.*?)\]\]/);
       let pLink = null;
+      
       if (productMatch) {
         const productFound = productMatch[1].trim();
+        // Creamos el enlace de afiliado
         pLink = `https://www.amazon.es/s?k=${encodeURIComponent(productFound)}&tag=${AMAZON_TAG}`;
+        // Quitamos los corchetes del texto visible
         aiResponseText = aiResponseText.replace(`[[${productFound}]]`, '');
       }
 
+      // Añadimos el mensaje de la IA al chat
       setMessages((prevMessages) => [...prevMessages, { 
         text: aiResponseText, 
         sender: 'ai',
@@ -72,32 +85,36 @@ function App() {
       }]);
 
     } catch (error) {
-      console.error("Detalle del error:", error);
+      console.error("Error de conexión:", error);
       setMessages((prevMessages) => [...prevMessages, { 
-        text: `Error: ${error.message}`, 
+        text: `Error de conexión: ${error.message}. Intenta recargar la página.`, 
         sender: 'ai' 
       }]);
     }
   };
 
+  // DISEÑO VISUAL (CORREGIDO class por className)
   return (
-    <div className="flex flex-col h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
-      {/* Cabecera del Chat - ARREGLADO class por className */}
+    <div className="flex flex-col h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 font-sans">
+      
+      {/* Cabecera Naranja */}
       <header className="bg-gradient-to-r from-orange-500 to-red-600 p-4 text-white flex justify-between items-center shadow-lg">
         <div>
           <h2 className="font-black text-lg tracking-tighter uppercase">Asistente IA</h2>
           <p className="text-[10px] opacity-90 font-bold uppercase tracking-widest">MejoresOfertas.es</p>
         </div>
+        {/* Input pequeño para la API Key */}
         <input
           type="password"
-          className="p-1 px-2 rounded bg-white bg-opacity-20 text-[10px] text-white placeholder-white focus:outline-none border border-white border-opacity-30"
+          className="p-1 px-2 rounded bg-white bg-opacity-20 text-[10px] text-white placeholder-white focus:outline-none border border-white border-opacity-30 w-24"
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
         />
       </header>
 
-      {/* Cuerpo del Chat */}
+      {/* Área de mensajes */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+        
         {messages.length === 0 && (
           <div className="text-center py-10 opacity-60">
             <span className="text-5xl mb-4 block">🤖</span>
@@ -113,23 +130,31 @@ function App() {
               : 'bg-white text-gray-800 border border-gray-100 rounded-tl-none font-medium'
             }`}>
               <p className="text-sm leading-relaxed">{msg.text}</p>
+              
+              {/* Botón de producto si existe */}
               {msg.productLink && (
                 <a 
                   href={msg.productLink} 
                   target="_blank" 
                   className="mt-4 block w-full bg-yellow-400 hover:bg-yellow-500 text-red-700 font-black py-3 rounded-xl text-center text-[10px] transition-all shadow-md uppercase tracking-tighter"
                 >
-                  🎯 Ver Chollazos en Amazon
+                  🎯 VER CHOLLO EN AMAZON
                 </a>
               )}
             </div>
           </div>
         ))}
-        {isTyping && <div className="text-orange-500 text-[10px] font-black animate-pulse uppercase ml-2 italic">Rastreando Amazon...</div>}
+
+        {/* Indicador de escribiendo */}
+        {isTyping && (
+            <div className="text-orange-500 text-[10px] font-black animate-pulse uppercase ml-2 italic">
+                Rastreando Amazon...
+            </div>
+        )}
         <div ref={chatEndRef} />
       </div>
 
-      {/* Input de texto */}
+      {/* Barra de escritura inferior */}
       <div className="p-4 bg-white border-t flex items-center gap-2">
         <input
           type="text"
