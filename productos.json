@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nombre": "Freidora de Aire Cecotec 5.5L",
+    "precio": "41.99",
+    "imagen": "https://m.media-amazon.com/images/I/71e0S-zSURL._AC_SL1500_.jpg",
+    "link": "https://www.amazon.es/s?k=freidora+cecotec&tag=librarium01-21"
+  },
+  {
+    "id": 2,
+    "nombre": "Auriculares Sony Noise Cancelling",
+    "precio": "124.00",
+    "imagen": "https://m.media-amazon.com/images/I/51SKu69S7pL._AC_SL1500_.jpg",
+    "link": "https://www.amazon.es/s?k=sony+wh&tag=librarium01-21"
+  },
+  {
+    "id": 3,
+    "nombre": "Smartwatch Xiaomi Redmi Watch",
+    "precio": "45.00",
+    "imagen": "https://m.media-amazon.com/images/I/61S9aV9k82L._AC_SL1500_.jpg",
+    "link": "https://www.amazon.es/s?k=redmi+watch&tag=librarium01-21"
+  }
+]
