@@ -5,50 +5,40 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-
-  // Tu API Key de Google
+  
+  // API KEY (Asegurada sin espacios extra)
   const [apiKey, setApiKey] = useState('AIzaSyCh-gSpjE17UGwanwtYr4oyY-Ntbqi63vI');
   const chatEndRef = useRef(null);
-
-  // Tu Tag de Afiliado de Amazon
   const AMAZON_TAG = 'librarium01-21';
 
-  // Efecto para bajar el scroll automáticamente
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Función para enviar mensaje
   const handleSendMessage = async () => {
     if (input.trim() === '') return;
-
     const userMessage = { text: input, sender: 'user' };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput('');
     setIsTyping(true);
-
     await getGeminiResponse(input);
     setIsTyping(false);
   };
 
-  // Función que conecta con la IA (CORREGIDA)
   const getGeminiResponse = async (prompt) => {
-    // Instrucciones para la IA
-    const systemInstruction = "Eres la experta en chollos de MejoresOfertas.es. Ayuda al usuario a encontrar productos en Amazon. Responde siempre de forma entusiasta y breve. SIEMPRE incluye al final el producto entre corchetes dobles: [[producto]].";
+    const systemInstruction = "Eres la experta en chollos de MejoresOfertas.es. Responde siempre de forma entusiasta y breve. SIEMPRE incluye al final el producto entre corchetes dobles: [[producto]].";
 
-    // Formato de datos correcto para la versión V1
+    // ESTRUCTURA CORRECTA
     const payload = {
       contents: [{
         parts: [{ text: systemInstruction + "\n\nUsuario: " + prompt }]
       }]
     };
 
-    // URL DE LA API (VERSIÓN V1 ESTABLE - ARREGLADA)
-    // Usamos comillas invertidas ` ` para que no falle
-    const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // CORRECCIÓN CRÍTICA: Usamos 'v1beta' porque es donde vive el modelo Flash
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
-      // AQUÍ ESTABA EL ERROR DE LA LÍNEA 47 - YA ESTÁ ARREGLADO
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -57,27 +47,26 @@ function App() {
 
       const result = await response.json();
 
-      // Si hay error en la respuesta de Google
       if (result.error) {
-        throw new Error(result.error.message);
+        // Si hay error, lo mostramos claro en el chat
+        throw new Error(result.error.message || "Error desconocido en Google");
       }
 
-      // Sacamos el texto de la respuesta
-      let aiResponseText = result.candidates[0].content.parts[0].text;
+      // Si no hay candidatos, lanzamos error controlado
+      if (!result.candidates || !result.candidates[0]) {
+         throw new Error("La IA no devolvió respuesta. Intenta de nuevo.");
+      }
 
-      // Buscamos si hay producto entre [[ ]] para crear el botón
+      let aiResponseText = result.candidates[0].content.parts[0].text;
+      
       const productMatch = aiResponseText.match(/\[\[(.*?)\]\]/);
       let pLink = null;
-      
       if (productMatch) {
         const productFound = productMatch[1].trim();
-        // Creamos el enlace de afiliado
         pLink = `https://www.amazon.es/s?k=${encodeURIComponent(productFound)}&tag=${AMAZON_TAG}`;
-        // Quitamos los corchetes del texto visible
         aiResponseText = aiResponseText.replace(`[[${productFound}]]`, '');
       }
 
-      // Añadimos el mensaje de la IA al chat
       setMessages((prevMessages) => [...prevMessages, { 
         text: aiResponseText, 
         sender: 'ai',
@@ -85,25 +74,22 @@ function App() {
       }]);
 
     } catch (error) {
-      console.error("Error de conexión:", error);
+      console.error("Error API:", error);
       setMessages((prevMessages) => [...prevMessages, { 
-        text: `Error de conexión: ${error.message}. Intenta recargar la página.`, 
+        text: `Error técnico: ${error.message}. (Tania, verifica en Google AI Studio que tu API Key tenga permisos).`, 
         sender: 'ai' 
       }]);
     }
   };
 
-  // DISEÑO VISUAL (CORREGIDO class por className)
+  // INTERFAZ (Corregido 'class' por 'className' para limpiar consola)
   return (
     <div className="flex flex-col h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 font-sans">
-      
-      {/* Cabecera Naranja */}
       <header className="bg-gradient-to-r from-orange-500 to-red-600 p-4 text-white flex justify-between items-center shadow-lg">
         <div>
           <h2 className="font-black text-lg tracking-tighter uppercase">Asistente IA</h2>
           <p className="text-[10px] opacity-90 font-bold uppercase tracking-widest">MejoresOfertas.es</p>
         </div>
-        {/* Input pequeño para la API Key */}
         <input
           type="password"
           className="p-1 px-2 rounded bg-white bg-opacity-20 text-[10px] text-white placeholder-white focus:outline-none border border-white border-opacity-30 w-24"
@@ -112,9 +98,7 @@ function App() {
         />
       </header>
 
-      {/* Área de mensajes */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
-        
         {messages.length === 0 && (
           <div className="text-center py-10 opacity-60">
             <span className="text-5xl mb-4 block">🤖</span>
@@ -130,31 +114,18 @@ function App() {
               : 'bg-white text-gray-800 border border-gray-100 rounded-tl-none font-medium'
             }`}>
               <p className="text-sm leading-relaxed">{msg.text}</p>
-              
-              {/* Botón de producto si existe */}
               {msg.productLink && (
-                <a 
-                  href={msg.productLink} 
-                  target="_blank" 
-                  className="mt-4 block w-full bg-yellow-400 hover:bg-yellow-500 text-red-700 font-black py-3 rounded-xl text-center text-[10px] transition-all shadow-md uppercase tracking-tighter"
-                >
+                <a href={msg.productLink} target="_blank" className="mt-4 block w-full bg-yellow-400 hover:bg-yellow-500 text-red-700 font-black py-3 rounded-xl text-center text-[10px] transition-all shadow-md uppercase tracking-tighter">
                   🎯 VER CHOLLO EN AMAZON
                 </a>
               )}
             </div>
           </div>
         ))}
-
-        {/* Indicador de escribiendo */}
-        {isTyping && (
-            <div className="text-orange-500 text-[10px] font-black animate-pulse uppercase ml-2 italic">
-                Rastreando Amazon...
-            </div>
-        )}
+        {isTyping && <div className="text-orange-500 text-[10px] font-black animate-pulse uppercase ml-2 italic">Rastreando Amazon...</div>}
         <div ref={chatEndRef} />
       </div>
 
-      {/* Barra de escritura inferior */}
       <div className="p-4 bg-white border-t flex items-center gap-2">
         <input
           type="text"
@@ -164,10 +135,7 @@ function App() {
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
         />
-        <button 
-          onClick={handleSendMessage}
-          className="bg-orange-600 p-3 rounded-2xl text-white hover:bg-red-700 transition-all shadow-lg active:scale-95"
-        >
+        <button onClick={handleSendMessage} className="bg-orange-600 p-3 rounded-2xl text-white hover:bg-red-700 transition-all shadow-lg active:scale-95">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
