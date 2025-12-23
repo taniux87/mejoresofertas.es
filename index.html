@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MejoresOfertas.es - Tu Asistente de IA para Chollos</title>
+    <link rel="icon" href="https://via.placeholder.com/32/FFA500/FFFFFF?text=IA" type="image/png"> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet"> </head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+    <header class="bg-gradient-to-r from-orange-600 to-red-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-tight">MejoresOfertas.es</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="catalogo.html" class="hover:text-yellow-200 transition-colors">Catálogo</a></li>
+                    <li><a href="blog.html" class="hover:text-yellow-200 transition-colors">Blog</a></li>
+                    <li><a href="ranking.html" class="hover:text-yellow-200 transition-colors">Ranking</a></li>
+                    <li><a href="contacto.html" class="hover:text-yellow-200 transition-colors">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-6 flex flex-col items-center justify-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 text-center leading-tight">
+            Encuentra las <span class="text-orange-600">Mejores Ofertas</span> con nuestra IA
+        </h1>
+        <p class="text-lg text-gray-700 mb-10 text-center max-w-2xl">
+            Tu asistente personal para descubrir chollos de Amazon al instante. ¡Pregúntale lo que quieras!
+        </p>
+
+        <div id="ai-chat-root" class="w-full max-w-3xl bg-white rounded-lg shadow-xl border border-gray-200">
+            </div>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 p-6 mt-10">
+        <div class="container mx-auto text-center text-sm">
+            &copy; 2024 MejoresOfertas.es. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script type="text/babel" src="app.js"></script>
+    <script type="text/babel">
+        // Monta tu componente de React en el div "ai-chat-root"
+        ReactDOM.render(<App />, document.getElementById('ai-chat-root'));
+    </script>
+</body>
+</html>
