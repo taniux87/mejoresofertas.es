@@ -3,60 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MejoresOfertas.es - Tu Asistente de IA para Chollos</title>
-    <link rel="icon" href="https://via.placeholder.com/32/FFA500/FFFFFF?text=IA" type="image/png"> 
+    <title>MejoresOfertas.es - Ahorra con IA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet"> 
+    <link href="style.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
     <header class="bg-gradient-to-r from-orange-600 to-red-700 text-white p-4 shadow-md">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold tracking-tight mb-4 md:mb-0">MejoresOfertas.es</a>
+            <a href="index.html" class="text-2xl font-bold mb-4 md:mb-0">MejoresOfertas.es</a>
             <nav>
-                <ul class="flex space-x-4 md:space-x-8 text-sm font-medium">
-                    <li><a href="catalogo.html" class="hover:text-yellow-300 transition-colors">Catálogo</a></li>
-                    <li><a href="ranking.html" class="hover:text-yellow-300 transition-colors">Ranking</a></li>
-                    <li><a href="blog.html" class="hover:text-yellow-300 transition-colors">Blog</a></li>
-                    <li><a href="contacto.html" class="hover:text-yellow-300 transition-colors">Contacto</a></li>
+                <ul class="flex space-x-6 text-sm font-bold uppercase">
+                    <li><a href="catalogo.html" class="hover:text-yellow-300">Catálogo</a></li>
+                    <li><a href="ranking.html" class="hover:text-yellow-300">Ranking</a></li>
+                    <li><a href="blog.html" class="hover:text-yellow-300">Blog</a></li>
+                    <li><a href="contacto.html" class="hover:text-yellow-300">Contacto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="flex-grow container mx-auto p-6 flex flex-col items-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-8 mb-4 text-center leading-tight">
-            Encuentra las <span class="text-orange-600">Mejores Ofertas</span> con nuestra IA
-        </h1>
-        <p class="text-lg text-gray-700 mb-10 text-center max-w-2xl">
-            Tu asistente personal para descubrir chollos de Amazon al instante. ¡Pregúntale lo que quieras!
-        </p>
+        <div class="text-center mt-8 mb-10">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">¿Qué quieres comprar hoy?</h1>
+            <p class="text-gray-600">Nuestra IA busca los mejores chollos por ti.</p>
+        </div>
 
-        <div id="ai-chat-root" class="w-full max-w-3xl bg-white rounded-lg shadow-xl border border-gray-200 mb-16">
-            </div>
+        <div id="ai-chat-root" class="w-full max-w-3xl mb-16"></div>
 
-        <section class="w-full max-w-5xl">
-            <div class="flex items-center justify-between mb-8 border-b-2 border-orange-100 pb-2">
-                <h2 class="text-2xl font-bold text-gray-800">🔥 Novedades y Últimos Chollos</h2>
-                <a href="catalogo.html" class="text-orange-600 font-bold hover:underline text-sm">Ver todo el catálogo →</a>
-            </div>
-            
-            <div id="novedades-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="h-40 bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-400">Imagen Producto</div>
-                    <h3 class="font-bold text-gray-800 mb-2">Oferta destacada Amazon</h3>
-                    <p class="text-orange-600 font-bold text-lg mb-3">00,00€</p>
-                    <button class="w-full bg-orange-500 text-white py-2 rounded-lg font-semibold">Ver Oferta</button>
-                </div>
+        <section class="w-full max-w-6xl">
+            <h2 class="text-2xl font-bold mb-8 border-l-4 border-orange-500 pl-4">🔥 Novedades Recién Detectadas</h2>
+            <div id="novedades-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 </div>
         </section>
-
     </main>
 
-    <footer class="bg-gray-800 text-gray-300 p-6 mt-20">
-        <div class="container mx-auto text-center text-sm">
-            &copy; 2025 MejoresOfertas.es. Tu rincón de ahorro inteligente.
-        </div>
+    <footer class="bg-gray-800 text-white p-8 mt-20 text-center">
+        <p>&copy; 2025 MejoresOfertas.es - Tu buscador de chollos inteligente</p>
     </footer>
 
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
@@ -65,6 +48,23 @@
     <script type="text/babel" src="app.js"></script>
     <script type="text/babel">
         ReactDOM.render(<App />, document.getElementById('ai-chat-root'));
+    </script>
+
+    <script>
+        // Función para cargar novedades desde el JSON
+        fetch('productos.json')
+            .then(response => response.json())
+            .then(data => {
+                const grid = document.getElementById('novedades-grid');
+                grid.innerHTML = data.slice(0, 3).map(p => `
+                    <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all p-5 border border-gray-100 flex flex-col">
+                        <img src="${p.imagen}" alt="${p.nombre}" class="h-48 w-full object-contain mb-4">
+                        <h3 class="font-bold text-gray-800 mb-2 h-12 overflow-hidden">${p.nombre}</h3>
+                        <p class="text-2xl font-black text-orange-600 mb-4">${p.precio}€</p>
+                        <a href="${p.link}" target="_blank" class="bg-orange-500 text-white text-center py-3 rounded-xl font-bold hover:bg-orange-600 transition-colors">Ver en Amazon</a>
+                    </div>
+                `).join('');
+            });
     </script>
 </body>
 </html>
