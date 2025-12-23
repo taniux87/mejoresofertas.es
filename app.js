@@ -5,7 +5,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [apiKey, setApiKey] = useState(''); 
+  const [apiKey, setApiKey] = useState(AIzaSyCh-gSpjE17UGwanwtYr4oyY-Ntbqi63vI); 
   const chatEndRef = useRef(null);
 
   // Tu ID de afiliado de Amazon
