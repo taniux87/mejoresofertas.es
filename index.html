@@ -9,111 +9,82 @@
     <link href="style.css" rel="stylesheet">
     
     <style>
-        .logo-text { font-family: 'Arial Black', sans-serif; letter-spacing: -1px; }
+        .logo-font { font-family: 'Arial Black', sans-serif; letter-spacing: -1px; }
         .gradient-bg { background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); }
-        /* Animación suave para los mensajes */
-        .msg-enter { animation: slideUp 0.3s ease-out forwards; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen font-sans">
 
     <header class="gradient-bg text-white shadow-xl sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-            <a href="index.html" class="logo-text text-3xl md:text-4xl flex items-center mb-4 md:mb-0 transform hover:scale-105 transition-transform">
-                <span class="bg-white text-red-600 px-2 rounded-lg mr-1 italic">M</span>EJORES<span class="text-yellow-400">OFERTAS</span>.ES
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="logo-font text-2xl md:text-3xl">
+                <span class="bg-white text-red-600 px-2 rounded mr-1">M</span>EJORES<span class="text-yellow-300">OFERTAS</span>
             </a>
-            <nav>
-                <ul class="flex space-x-4 md:space-x-6 text-sm font-black uppercase tracking-tighter">
-                    <li><a href="catalogo.html" class="bg-white bg-opacity-10 px-3 py-2 rounded-lg hover:bg-yellow-400 hover:text-red-700 transition-all">Catálogo</a></li>
-                    <li><a href="ranking.html" class="hover:text-yellow-300">Ranking</a></li>
-                    <li><a href="contacto.html" class="hover:text-yellow-300">Contacto</a></li>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6 font-bold text-sm uppercase">
+                    <li><a href="#" class="hover:text-yellow-300">Catálogo</a></li>
+                    <li><a href="#" class="hover:text-yellow-300">Ranking</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto p-6 flex flex-col items-center">
+    <main class="flex-grow container mx-auto p-4 flex flex-col items-center">
         
-        <div class="text-center mt-8 mb-10">
-            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
-                ¿Qué quieres comprar <span class="text-orange-600 italic">hoy</span>?
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-                Tu asistente experto en buscar chollos en Amazon.
-            </p>
+        <div class="text-center mt-8 mb-8">
+            <h1 class="text-4xl font-black text-gray-800">¿Qué buscas hoy?</h1>
+            <p class="text-gray-500 mt-2">Nuestra IA encuentra el mejor precio en Amazon.</p>
         </div>
 
-        <div class="w-full max-w-3xl flex flex-col h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 mb-16">
+        <div class="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200 flex flex-col h-[500px]">
             
-            <div class="bg-gradient-to-r from-orange-500 to-red-600 p-4 text-white flex justify-between items-center shadow-lg">
+            <div class="bg-gray-100 p-4 border-b flex items-center gap-3">
+                <span class="text-2xl">🤖</span>
                 <div>
-                    <h2 class="font-black text-lg tracking-tighter uppercase">Asistente IA</h2>
-                    <p class="text-[10px] opacity-90 font-bold uppercase tracking-widest">MejoresOfertas.es</p>
-                </div>
-                <input type="hidden" id="api-key-input" value="AIzaSyCh-gSpjE17UGwanwtYr4oyY-Ntbqi63vI">
-            </div>
-
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
-                <div id="welcome-message" class="text-center py-10 opacity-60">
-                    <span class="text-5xl mb-4 block animate-bounce">🤖</span>
-                    <p class="text-gray-600 font-bold uppercase text-xs tracking-widest">¿Qué chollo buscamos hoy?</p>
+                    <h3 class="font-bold text-gray-800 leading-none">Asistente IA</h3>
+                    <p class="text-xs text-green-600 font-bold">● En línea</p>
                 </div>
             </div>
 
-            <div id="typing-indicator" class="hidden px-6 pb-2 bg-gray-50">
-                <div class="text-orange-500 text-[10px] font-black animate-pulse uppercase italic">
-                    Rastreando Amazon...
+            <div id="chat-container" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+                <div class="text-center py-10 opacity-50" id="welcome-msg">
+                    <p class="text-sm font-bold uppercase tracking-widest">¿En qué te ayudo?</p>
                 </div>
             </div>
 
-            <div class="p-4 bg-white border-t flex items-center gap-2">
+            <div id="loading" class="hidden px-6 py-2 text-xs text-orange-500 font-bold italic bg-gray-50">
+                Pensando...
+            </div>
+
+            <div class="p-4 bg-white border-t flex gap-2">
                 <input type="text" id="user-input" 
-                    class="flex-1 p-3 bg-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 font-bold text-sm" 
-                    placeholder="Escribe aquí (ej: zapatillas Nike)...">
+                    class="flex-1 bg-gray-100 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium"
+                    placeholder="Escribe aquí...">
                 <button id="send-btn" 
-                    class="bg-orange-600 p-3 rounded-2xl text-white hover:bg-red-700 transition-all shadow-lg active:scale-95 transform hover:rotate-3">
+                    class="bg-orange-600 text-white px-6 rounded-xl font-bold hover:bg-red-700 transition-all">
                     ➤
                 </button>
             </div>
         </div>
 
-        <section class="w-full max-w-6xl">
-            <div class="flex items-center mb-8 border-b-2 border-gray-100 pb-4">
-                <span class="text-3xl mr-3">🔥</span>
-                <h2 class="text-3xl font-black text-gray-800 uppercase tracking-tighter">Novedades Recién Detectadas</h2>
-            </div>
-            <div id="novedades-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
-        </section>
+        <div id="novedades-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 w-full max-w-5xl"></div>
 
     </main>
-
-    <footer class="bg-gray-900 text-gray-400 p-12 mt-20 text-center border-t-4 border-orange-600">
-        <p class="text-white font-bold uppercase tracking-widest">MejoresOfertas.es</p>
-    </footer>
 
     <script src="app.js"></script>
     
     <script>
-        fetch('productos.json').then(r => r.json()).then(data => {
-            const grid = document.getElementById('novedades-grid');
-            if(grid && data) {
-                grid.innerHTML = data.slice(0, 6).map(p => `
-                    <div class="bg-white rounded-3xl shadow-lg p-6 border border-gray-100 flex flex-col h-full group hover:shadow-2xl transition-all">
-                        <div class="h-48 w-full mb-4 flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50">
-                            <img src="${p.imagen}" alt="${p.nombre}" class="max-h-full max-w-full object-contain p-4 transform group-hover:scale-110 transition-transform">
-                        </div>
-                        <h3 class="font-extrabold text-gray-800 mb-2 h-10 overflow-hidden line-clamp-2">${p.nombre}</h3>
-                        <div class="mt-auto flex justify-between items-center">
-                            <span class="text-3xl font-black text-red-600">${p.precio}€</span>
-                            <span class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded">CHOLLO</span>
-                        </div>
-                        <a href="${p.link}" target="_blank" class="mt-4 block w-full bg-orange-600 text-white font-black py-3 rounded-xl text-center hover:bg-red-700 shadow-lg">¡LO QUIERO!</a>
-                    </div>
-                `).join('');
-            }
-        });
+        fetch('productos.json').then(r => r.json()).then(d => {
+            const g = document.getElementById('novedades-grid');
+            if(g && d) g.innerHTML = d.slice(0,3).map(p => `
+                <div class="bg-white p-4 rounded-xl shadow border text-center">
+                    <img src="${p.imagen}" class="h-32 mx-auto mb-2 object-contain">
+                    <h3 class="font-bold text-sm mb-2 line-clamp-2">${p.nombre}</h3>
+                    <p class="text-2xl font-black text-red-600">${p.precio}€</p>
+                    <a href="${p.link}" target="_blank" class="block mt-3 bg-orange-100 text-orange-700 font-bold py-2 rounded hover:bg-orange-200">Ver Oferta</a>
+                </div>
+            `).join('');
+        }).catch(e => console.log("Sin productos"));
     </script>
 </body>
 </html>
