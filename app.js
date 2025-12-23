@@ -41,9 +41,11 @@ function App() {
       }]
     };
 
-const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // LÍNEA 45 ARREGLADA (Con su comilla de cierre)
+    const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
+      // LÍNEA 47 ARREGLADA: Ahora apiUrl está definida correctamente arriba
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
