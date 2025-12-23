@@ -14,7 +14,7 @@
     <meta property="og:type" content="website">
     
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link href="style.css?v=2" rel="stylesheet">
     
     <style>
         .logo-text { font-family: 'Arial Black', sans-serif; letter-spacing: -1px; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
@@ -104,12 +104,14 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <script type="text/babel" src="app.js"></script>
+    
     <script type="text/babel">
         const renderIA = () => {
             if (typeof App !== 'undefined') {
                 ReactDOM.render(<App />, document.getElementById('ai-chat-root'));
             } else {
-                setTimeout(renderIA, 200);
+                // Si App.js tarda en cargar, esperamos un poco
+                setTimeout(renderIA, 100);
             }
         };
         renderIA();
