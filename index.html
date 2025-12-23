@@ -76,7 +76,7 @@
     <script>
         fetch('productos.json').then(r => r.json()).then(d => {
             const g = document.getElementById('novedades-grid');
-            if(g && d) g.innerHTML = d.slice(0,3).map(p => `
+            if(g && d) g.innerHTML = d.slice(0,6).map(p => `
                 <div class="bg-white p-4 rounded-xl shadow border text-center">
                     <img src="${p.imagen}" class="h-32 mx-auto mb-2 object-contain">
                     <h3 class="font-bold text-sm mb-2 line-clamp-2">${p.nombre}</h3>
