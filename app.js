@@ -1,9 +1,10 @@
-// app.js - Versión Nativa (Mismo diseño, sin errores)
+// app.js - Versión Robusta (Nativa)
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURACIÓN ---
     const apiKeyInput = document.getElementById('api-key-input');
+    // Si la clave falla mucho, considera generar una nueva en Google AI Studio
     const AMAZON_TAG = 'librarium01-21';
 
     // Elementos del chat
@@ -13,71 +14,78 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingIndicator = document.getElementById('typing-indicator');
     const welcomeMessage = document.getElementById('welcome-message');
 
-    // --- FUNCIÓN PARA PINTAR MENSAJES (Mismo diseño que React) ---
+    // --- 1. PINTAR MENSAJES (ESTILO WHATSAPP) ---
     function addMessage(text, sender, productLink = null) {
-        // Ocultar bienvenida
         if (welcomeMessage) welcomeMessage.style.display = 'none';
 
         const wrapper = document.createElement('div');
-        // Clases para alinear derecha/izquierda
         wrapper.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} msg-enter`;
 
         const bubble = document.createElement('div');
-        // AQUI ESTÁ LA MAGIA DEL DISEÑO:
         if (sender === 'user') {
-            // Diseño Naranja para usuario (igual que antes)
             bubble.className = "max-w-[85%] p-4 rounded-2xl bg-orange-600 text-white rounded-tr-none shadow-md text-sm font-medium leading-relaxed";
         } else {
-            // Diseño Blanco para IA (igual que antes)
             bubble.className = "max-w-[85%] p-4 rounded-2xl bg-white text-gray-800 border border-gray-100 rounded-tl-none shadow-md text-sm font-medium leading-relaxed";
         }
         
         bubble.innerText = text;
 
-        // Si hay enlace, añadimos el BOTÓN AMARILLO
+        // BOTÓN DE AMAZON
         if (productLink) {
             const btn = document.createElement('a');
             btn.href = productLink;
             btn.target = "_blank";
-            // Clases del botón amarillo
             btn.className = "mt-4 block w-full bg-yellow-400 hover:bg-yellow-500 text-red-700 font-black py-3 rounded-xl text-center text-[10px] transition-all shadow-md uppercase tracking-tighter transform hover:scale-105 no-underline cursor-pointer";
-            btn.innerText = "🎯 VER CHOLLAZOS EN AMAZON";
+            btn.innerText = "🎯 VER CHOLLO EN AMAZON";
             bubble.appendChild(btn);
         }
 
         wrapper.appendChild(bubble);
         chatMessages.appendChild(wrapper);
-        
-        // Bajar scroll
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    // --- CONEXIÓN CON LA IA ---
+    // --- 2. CONEXIÓN CON LA IA (GOOGLE GEMINI) ---
     async function fetchGemini(prompt) {
         typingIndicator.classList.remove('hidden');
         chatMessages.scrollTop = chatMessages.scrollHeight;
         
-        const apiKey = apiKeyInput.value;
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const apiKey = apiKeyInput.value.trim();
+        // Usamos v1beta que es más compatible con Flash
+        const baseUrl = "https://generativelanguage.googleapis.com/v1beta/models/";
+        
+        // Instrucciones para la IA
+        const payload = {
+            contents: [{ parts: [{ text: "Eres una experta en chollos. Responde muy breve y simpática. Pon el producto final a buscar entre corchetes dobles [[Producto]]. Usuario: " + prompt }] }]
+        };
 
         try {
-            const response = await fetch(apiUrl, {
+            // INTENTO 1: Modelo Rápido (Flash)
+            let response = await fetch(`${baseUrl}gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: "Eres una experta en chollos. Responde breve y entusiasta. Pon el producto final entre corchetes dobles [[Producto]]. Usuario: " + prompt }] }]
-                })
+                body: JSON.stringify(payload)
             });
 
+            // Si falla Flash, intentamos el Plan B (Modelo Pro Clásico)
+            if (!response.ok) {
+                console.warn("Flash falló, intentando modelo Pro...");
+                response = await fetch(`${baseUrl}gemini-pro:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            }
+
             const data = await response.json();
-            
+
             if (data.error) throw new Error(data.error.message);
             if (!data.candidates) throw new Error("Sin respuesta");
 
             let text = data.candidates[0].content.parts[0].text;
             let link = null;
 
-            // Extraer producto [[...]]
+            // Extraer [[Producto]]
             const match = text.match(/\[\[(.*?)\]\]/);
             if (match) {
                 const product = match[1].trim();
@@ -89,13 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error(err);
-            addMessage("Ups, hubo un error técnico. Inténtalo de nuevo.", 'ai');
+            addMessage("Ups, mi cerebro está echando humo. Revisa tu API Key o inténtalo de nuevo.", 'ai');
         } finally {
             typingIndicator.classList.add('hidden');
         }
     }
 
-    // --- EVENTOS ---
+    // --- 3. EVENTOS ---
     function send() {
         const text = userInput.value.trim();
         if (!text) return;
