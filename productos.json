@@ -19,5 +19,12 @@
     "precio": "45.00",
     "imagen": "https://m.media-amazon.com/images/I/51756XmmP7L._AC_SX425_.jpg",
     "link": "https://www.amazon.es/s?k=redmi+watch&tag=librarium01-21"
+  },
+  {
+    "id": 4,
+    "nombre": "Cecotec Lavadora 6Kg",
+    "precio": "249.00",
+    "imagen": "https://m.media-amazon.com/images/I/71q5erfOQ1L._AC_UL320_.jpg",
+    "link": "https://www.amazon.es/s?k=lavadora+cecotec&tag=librarium01-21"
   }
 ]
