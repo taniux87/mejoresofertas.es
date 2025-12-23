@@ -3,43 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MejoresOfertas.es - Ahorra con IA</title>
+    
+    <title>MejoresOfertas.es | Chollos y Ofertas en Amazon con IA</title>
+    <meta name="description" content="Encuentra las mejores ofertas y chollos de Amazon actualizados al momento. Usa nuestra IA inteligente para buscar productos al mejor precio de forma automática.">
+    <meta name="keywords" content="ofertas amazon, chollos hoy, mejores ofertas, buscador chollos ia, ahorrar amazon">
+    <meta name="author" content="MejoresOfertas.es">
+    
+    <meta property="og:title" content="MejoresOfertas.es - Ahorra con nuestra IA">
+    <meta property="og:description" content="¿Buscas el mejor precio? Nuestra IA encuentra los chollos de Amazon por ti.">
+    <meta property="og:type" content="website">
+    
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
+    
+    <style>
+        .logo-text {
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+        }
+    </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
-    <header class="bg-gradient-to-r from-orange-600 to-red-700 text-white p-4 shadow-md">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold mb-4 md:mb-0">MejoresOfertas.es</a>
+    <header class="gradient-bg text-white shadow-xl">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <a href="index.html" class="logo-text text-3xl md:text-4xl flex items-center mb-4 md:mb-0">
+                <span class="bg-white text-red-600 px-2 rounded-lg mr-1 italic">M</span>EJORES<span class="text-yellow-400">OFERTAS</span>.ES
+            </a>
+            
             <nav>
-                <ul class="flex space-x-6 text-sm font-bold uppercase">
-                    <li><a href="catalogo.html" class="hover:text-yellow-300">Catálogo</a></li>
-                    <li><a href="ranking.html" class="hover:text-yellow-300">Ranking</a></li>
-                    <li><a href="blog.html" class="hover:text-yellow-300">Blog</a></li>
-                    <li><a href="contacto.html" class="hover:text-yellow-300">Contacto</a></li>
+                <ul class="flex space-x-4 md:space-x-6 text-sm font-black uppercase tracking-tighter">
+                    <li><a href="catalogo.html" class="bg-white bg-opacity-10 px-3 py-2 rounded-lg hover:bg-yellow-400 hover:text-red-700 transition-all">Catálogo</a></li>
+                    <li><a href="ranking.html" class="hover:text-yellow-300 transition-colors">Ranking</a></li>
+                    <li><a href="blog.html" class="hover:text-yellow-300 transition-colors">Blog</a></li>
+                    <li><a href="contacto.html" class="hover:text-yellow-300 transition-colors">Contacto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="flex-grow container mx-auto p-6 flex flex-col items-center">
+        
         <div class="text-center mt-8 mb-10">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">¿Qué quieres comprar hoy?</h1>
-            <p class="text-gray-600">Nuestra IA busca los mejores chollos por ti.</p>
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+                ¿Qué quieres comprar <span class="text-orange-600 italic">hoy</span>?
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
+                Nuestra Inteligencia Artificial rastrea los mejores chollos de Amazon para que no pagues ni un euro de más.
+            </p>
         </div>
 
-        <div id="ai-chat-root" class="w-full max-w-3xl mb-16"></div>
+        <div id="ai-chat-root" class="w-full max-w-3xl mb-16 transition-all duration-500 transform hover:scale-[1.01]">
+            </div>
+
+        <section class="w-full max-w-6xl mb-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="p-6 bg-orange-50 rounded-2xl border border-orange-100">
+                <div class="text-3xl mb-2">🤖</div>
+                <h3 class="font-bold text-gray-800">Búsqueda Inteligente</h3>
+                <p class="text-sm text-gray-600">La IA analiza precios reales para encontrarte el chollo verdadero.</p>
+            </div>
+            <div class="p-6 bg-red-50 rounded-2xl border border-red-100">
+                <div class="text-3xl mb-2">⚡</div>
+                <h3 class="font-bold text-gray-800">Ofertas Flash</h3>
+                <p class="text-sm text-gray-600">Actualizamos los productos para captar las bajadas de precio al instante.</p>
+            </div>
+            <div class="p-6 bg-yellow-50 rounded-2xl border border-yellow-100">
+                <div class="text-3xl mb-2">🛡️</div>
+                <h3 class="font-bold text-gray-800">Compra Segura</h3>
+                <p class="text-sm text-gray-600">Solo enlazamos a productos con excelentes valoraciones en Amazon.</p>
+            </div>
+        </section>
 
         <section class="w-full max-w-6xl">
-            <h2 class="text-2xl font-bold mb-8 border-l-4 border-orange-500 pl-4">🔥 Novedades Recién Detectadas</h2>
+            <div class="flex items-center mb-8">
+                <span class="text-3xl mr-3">🔥</span>
+                <h2 class="text-3xl font-black text-gray-800 uppercase tracking-tighter">Novedades Recién Detectadas</h2>
+            </div>
             <div id="novedades-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 </div>
         </section>
     </main>
 
-    <footer class="bg-gray-800 text-white p-8 mt-20 text-center">
-        <p>&copy; 2025 MejoresOfertas.es - Tu buscador de chollos inteligente</p>
+    <footer class="bg-gray-900 text-gray-400 p-12 mt-20 text-center border-t-4 border-orange-600">
+        <div class="container mx-auto">
+            <p class="text-white font-bold mb-4">MEJORES<span class="text-orange-500">OFERTAS</span>.ES</p>
+            <p class="text-sm mb-6">Participamos en el Programa de Afiliados de Amazon. Ayudamos a ahorrar a miles de usuarios con IA.</p>
+            <div class="flex justify-center space-x-6 text-xs uppercase font-bold">
+                <a href="#" class="hover:text-white">Aviso Legal</a>
+                <a href="#" class="hover:text-white">Privacidad</a>
+                <a href="#" class="hover:text-white">Cookies</a>
+            </div>
+        </div>
     </footer>
 
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
@@ -48,10 +106,14 @@
     
     <script type="text/babel" src="app.js"></script>
     <script type="text/babel">
-        // Forzamos el renderizado de la IA
-        if (typeof App !== 'undefined') {
-            ReactDOM.render(<App />, document.getElementById('ai-chat-root'));
+        function checkApp() {
+            if (typeof App !== 'undefined') {
+                ReactDOM.render(<App />, document.getElementById('ai-chat-root'));
+            } else {
+                setTimeout(checkApp, 100);
+            }
         }
+        checkApp();
     </script>
 
     <script>
@@ -62,15 +124,18 @@
                     const grid = document.getElementById('novedades-grid');
                     if(grid && data) {
                         grid.innerHTML = data.slice(0, 3).map(p => `
-                            <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all p-5 border border-gray-100 flex flex-col h-full relative">
-                                <div class="h-48 w-full mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-50">
-                                    <img src="${p.imagen}" alt="${p.nombre}" class="max-h-full max-w-full object-contain">
+                            <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all p-6 border border-gray-100 flex flex-col h-full group">
+                                <div class="h-52 w-full mb-6 flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50 group-hover:bg-white transition-colors">
+                                    <img src="${p.imagen}" alt="${p.nombre}" class="max-h-full max-w-full object-contain p-4 transform group-hover:scale-110 transition-transform duration-500">
                                 </div>
-                                <h3 class="font-bold text-gray-800 mb-2 h-12 overflow-hidden text-sm line-clamp-2">${p.nombre}</h3>
-                                <p class="text-2xl font-black text-orange-600 mb-4">${p.precio}€</p>
+                                <h3 class="font-extrabold text-gray-800 mb-3 h-12 overflow-hidden text-lg line-clamp-2 leading-tight">${p.nombre}</h3>
+                                <div class="flex justify-between items-center mt-auto">
+                                    <p class="text-3xl font-black text-red-600">${p.precio}€</p>
+                                    <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-1 rounded">CHOLLO</span>
+                                </div>
                                 <a href="${p.link}" target="_blank" 
-                                   class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-extrabold py-3 rounded-xl transition-colors shadow-sm relative z-10">
-                                    VER CHOLLO EN AMAZON
+                                   class="block w-full text-center bg-orange-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl mt-6 transition-all shadow-lg hover:shadow-orange-200">
+                                    ¡LO QUIERO!
                                 </a>
                             </div>
                         `).join('');
