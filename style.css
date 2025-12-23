@@ -1,11 +1,41 @@
+/* style.css */
 
-
-header a.font-bold:hover {
+/* Tus ajustes de interactividad */
+header a:hover {
     transform: scale(1.02);
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    transition: all 0.2s ease;
 }
 
-/* Ajuste para el scroll en pantallas pequeñas si es necesario */
+/* Tu ajuste de scroll para el chat */
 #ai-chat-root .max-h-96 {
-    max-height: 70vh; /* Ajusta la altura máxima del chat si es necesario */
+    max-height: 70vh; 
+}
+
+/* Diseño de las tarjetas de productos */
+.group:hover img {
+    transform: scale(1.1);
+}
+
+.group {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo para los botones de la IA que no se ven */
+a[href*="amazon"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: white !important;
+}
+
+/* Tipografía del logo */
+.logo-text {
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: -1px;
+}
+
+/* Degradado corporativo */
+.gradient-bg {
+    background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
 }
