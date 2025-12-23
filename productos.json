@@ -26,5 +26,12 @@
     "precio": "249.00",
     "imagen": "https://m.media-amazon.com/images/I/71q5erfOQ1L._AC_UL320_.jpg",
     "link": "https://www.amazon.es/s?k=lavadora+cecotec&tag=librarium01-21"
+  },
+   {
+    "id": 5,
+    "nombre": "Cecotec Robot Aspirador Base Autovaciado Conga 9590",
+    "precio": "169.00",
+    "imagen": "https://m.media-amazon.com/images/I/714cqcvwySL._AC_SX679_.jpg",
+    "link": "https://www.amazon.es/s?k=robotaspirador+cecotec&tag=librarium01-21"
   }
 ]
