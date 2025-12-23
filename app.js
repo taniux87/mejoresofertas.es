@@ -31,21 +31,18 @@ function App() {
   };
 
   const getGeminiResponse = async (prompt) => {
-    // Instrucciones para que la IA sepa qué hacer
     const systemInstruction = "Eres la experta en chollos de MejoresOfertas.es. Ayuda al usuario a encontrar productos en Amazon. Responde siempre de forma entusiasta y breve. SIEMPRE incluye al final el producto entre corchetes dobles: [[producto]].";
 
-    // Preparamos el envío para la versión V1 estable
     const payload = {
       contents: [{
         parts: [{ text: systemInstruction + "\n\nUsuario: " + prompt }]
       }]
     };
 
-    // LÍNEA 45 ARREGLADA (Con su comilla de cierre)
+    // LÍNEA 45 ARREGLADA: Dirección V1 y comilla cerrada
     const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
-      // LÍNEA 47 ARREGLADA: Ahora apiUrl está definida correctamente arriba
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -54,14 +51,12 @@ function App() {
 
       const result = await response.json();
 
-      // Si Google responde con un error, lo mostramos en el chat
       if (result.error) {
         throw new Error(result.error.message);
       }
 
       let aiResponseText = result.candidates[0].content.parts[0].text;
       
-      // Buscamos si hay un producto entre corchetes para crear el botón
       const productMatch = aiResponseText.match(/\[\[(.*?)\]\]/);
       let pLink = null;
       if (productMatch) {
@@ -79,7 +74,7 @@ function App() {
     } catch (error) {
       console.error("Detalle del error:", error);
       setMessages((prevMessages) => [...prevMessages, { 
-        text: `Error: ${error.message}. Revisa que tu clave no tenga restricciones en Google Cloud.`, 
+        text: `Error: ${error.message}`, 
         sender: 'ai' 
       }]);
     }
@@ -87,7 +82,7 @@ function App() {
 
   return (
     <div className="flex flex-col h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
-      {/* Cabecera del Chat */}
+      {/* Cabecera del Chat - ARREGLADO class por className */}
       <header className="bg-gradient-to-r from-orange-500 to-red-600 p-4 text-white flex justify-between items-center shadow-lg">
         <div>
           <h2 className="font-black text-lg tracking-tighter uppercase">Asistente IA</h2>
