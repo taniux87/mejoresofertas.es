@@ -6,62 +6,61 @@ function App() {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   
-  // API Key con comillas. Asegúrate de no dejar espacios al final.
+  // Tu API Key con comillas
   const [apiKey, setApiKey] = useState('AIzaSyCh-gSpjE17UGwanwtYr4oyY-Ntbqi63vI');
   const chatEndRef = useRef(null);
 
+  // Tu ID de afiliado de Amazon
   const AMAZON_TAG = 'librarium01-21';
 
+  // Efecto para que el chat siempre baje solo
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleSendMessage = async () => {
     if (input.trim() === '') return;
+
     const userMessage = { text: input, sender: 'user' };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput('');
     setIsTyping(true);
+
     await getGeminiResponse(input);
     setIsTyping(false);
   };
 
   const getGeminiResponse = async (prompt) => {
+    // Instrucciones para que la IA sepa qué hacer
     const systemInstruction = "Eres la experta en chollos de MejoresOfertas.es. Ayuda al usuario a encontrar productos en Amazon. Responde siempre de forma entusiasta y breve. SIEMPRE incluye al final el producto entre corchetes dobles: [[producto]].";
 
-    // Historial simplificado para evitar errores de cuota
-    let chatHistory = [
-      { role: "user", parts: [{ text: systemInstruction }] },
-      { role: "model", parts: [{ text: "¡Hola! Soy tu asistente de chollos. ¿Qué buscamos hoy?" }] }
-    ];
+    // Preparamos el envío para la versión V1 estable
+    const payload = {
+      contents: [{
+        parts: [{ text: systemInstruction + "\n\nUsuario: " + prompt }]
+      }]
+    };
 
-    // Añadimos solo los últimos mensajes para no saturar la API
-    messages.slice(-4).forEach(msg => {
-      chatHistory.push({
-        role: msg.sender === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.text }]
-      });
-    });
-    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // URL corregida a la versión V1 para evitar el error 404 de la consola
+    const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: chatHistory })
+        body: JSON.stringify(payload)
       });
 
       const result = await response.json();
 
-      // Si Google devuelve un error, lo capturamos aquí
+      // Si Google responde con un error, lo mostramos en el chat
       if (result.error) {
         throw new Error(result.error.message);
       }
 
       let aiResponseText = result.candidates[0].content.parts[0].text;
       
+      // Buscamos si hay un producto entre corchetes para crear el botón
       const productMatch = aiResponseText.match(/\[\[(.*?)\]\]/);
       let pLink = null;
       if (productMatch) {
@@ -79,14 +78,15 @@ function App() {
     } catch (error) {
       console.error("Detalle del error:", error);
       setMessages((prevMessages) => [...prevMessages, { 
-        text: `Error: ${error.message}. Verifica que tu API Key no tenga restricciones en Google Cloud.`, 
+        text: `Error: ${error.message}. Revisa que tu clave no tenga restricciones en Google Cloud.`, 
         sender: 'ai' 
       }]);
     }
   };
 
   return (
-    <div className="flex flex-col h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 font-sans">
+    <div className="flex flex-col h-[500px] bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+      {/* Cabecera del Chat */}
       <header className="bg-gradient-to-r from-orange-500 to-red-600 p-4 text-white flex justify-between items-center shadow-lg">
         <div>
           <h2 className="font-black text-lg tracking-tighter uppercase">Asistente IA</h2>
@@ -100,6 +100,7 @@ function App() {
         />
       </header>
 
+      {/* Cuerpo del Chat */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
         {messages.length === 0 && (
           <div className="text-center py-10 opacity-60">
@@ -132,6 +133,7 @@ function App() {
         <div ref={chatEndRef} />
       </div>
 
+      {/* Input de texto */}
       <div className="p-4 bg-white border-t flex items-center gap-2">
         <input
           type="text"
