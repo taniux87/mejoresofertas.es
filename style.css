@@ -1,50 +1,23 @@
 /* style.css */
-
-/* Tus ajustes de interactividad */
 header a:hover {
-    transform: scale(1.02);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-    transition: all 0.2s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* Tu ajuste de scroll para el chat */
-#ai-chat-root .max-h-96 {
-    max-height: 70vh; 
+#chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+#chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+#chat-messages::-webkit-scrollbar-thumb {
+    background: #cbd5e1; 
+    border-radius: 10px;
+}
+#chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; 
 }
 
-/* Diseño de las tarjetas de productos */
 .group:hover img {
     transform: scale(1.1);
+    transition: transform 0.3s ease;
 }
-
-.group {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Estilo para los botones de la IA que no se ven */
-a[href*="amazon"] {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    color: white !important;
-}
-
-/* Tipografía del logo */
-.logo-text {
-    font-family: 'Arial Black', sans-serif;
-    letter-spacing: -1px;
-}
-
-/* Degradado corporativo */
-.gradient-bg {
-    background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
-}
-/* Scrollbar bonita para el chat */
-#chat-messages::-webkit-scrollbar { width: 6px; }
-#chat-messages::-webkit-scrollbar-track { background: #f1f1f1; }
-#chat-messages::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-#chat-messages::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-/* Efectos visuales */
-header a:hover { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-.group:hover img { transform: scale(1.1); transition: transform 0.5s ease; }
