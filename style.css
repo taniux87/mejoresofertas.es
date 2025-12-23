@@ -21,3 +21,7 @@ header a:hover {
     transform: scale(1.1);
     transition: transform 0.3s ease;
 }
+body { background-color: #f9fafb; }
+/* Scrollbar */
+#chat-container::-webkit-scrollbar { width: 5px; }
+#chat-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
